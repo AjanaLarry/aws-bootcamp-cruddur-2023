@@ -25,7 +25,7 @@ class NotificationsActivities:
     {
       'uuid': '66e12864-8c26-4c3a-9658-95a10f8fea67',
       'handle':  'ElonMusk',
-      'message': 'Can Cruddur really complete with Twitter?',
+      'message': 'Can Cruddur really compete with Twitter?',
       'created_at': (now - timedelta(days=7)).isoformat(),
       'expires_at': (now + timedelta(days=9)).isoformat(),
       'likes': 0,
