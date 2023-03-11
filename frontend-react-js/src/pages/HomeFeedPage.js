@@ -7,6 +7,10 @@ import ActivityFeed from '../components/ActivityFeed';
 import ActivityForm from '../components/ActivityForm';
 import ReplyForm from '../components/ReplyForm';
 
+//Honeycomb Tracing
+import { trace, context, } from '@opentelemetry/api';
+const tracer = trace.getTracer();
+
 // [TODO] Authenication
 import Cookies from 'js-cookie'
 
@@ -17,18 +21,33 @@ export default function HomeFeedPage() {
   const [replyActivity, setReplyActivity] = React.useState({});
   const [user, setUser] = React.useState(null);
   const dataFetchedRef = React.useRef(false);
-
+  
   const loadData = async () => {
     try {
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/home`
+      var startTime = performance.now() //capture start time
       const res = await fetch(backend_url, {
         method: "GET"
       });
+      var endTime = performance.now() //capture when result was returned
       let resJson = await res.json();
       if (res.status === 200) {
         setActivities(resJson)
+         //Start custom span
+         tracer.startActiveSpan('HomeFeedPageLoadSpan', hmfSpan => {
+          // Add attributes to custom span
+          hmfSpan.setAttribute('homeeFeedPage.latency_MS', (endTime - startTime)); //Latency in milliseconds
+          hmfSpan.setAttribute('homeeFeedPage.status', true); //status of the item retrieved
+          hmfSpan.end();
+        });
       } else {
         console.log(res)
+         // same as above but for when the response isnt a success
+         tracer.startActiveSpan('HomeFeedPageLoadSpan', hmfSpan => {
+          hmfSpan.setAttribute('homeeFeedPage.latency_MS', (endTime - startTime));
+          hmfSpan.setAttribute('homeeFeedPage.status', false);
+          hmfSpan.end();
+        });
       }
     } catch (err) {
       console.log(err);

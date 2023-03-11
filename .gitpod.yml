@@ -18,6 +18,16 @@ tasks:
     command: |
       cd frontend-react-js
       npm i
+  # Other Task....
+  - name: npm-init
+    init: |
+      cd /workspace/aws-bootcamp-cruddur-2023/frontend-react-js
+      npm i --save \
+          @opentelemetry/api \
+          @opentelemetry/sdk-trace-web \
+          @opentelemetry/exporter-trace-otlp-http \
+          @opentelemetry/instrumentation-document-load \
+          @opentelemetry/context-zone
 
 vscode:
   extensions:
@@ -34,4 +44,8 @@ ports:
     visibility: public
   - name: xray-daemon
     port: 2000
+    visibility: public
+    # other ports...
+  - port: 4318
+    name: otel-collector
     visibility: public
