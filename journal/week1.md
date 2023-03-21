@@ -1,4 +1,4 @@
-# Week 1 - Homework Challenges
+# Week 1 - App Containerization (Homework Challenges)
 
 
 This week, I containerized the frontend and backend applications that will serve the platform. Also, I completed all the Todo lists for the week. Below is a summary of the homework challenges:
