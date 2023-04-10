@@ -18,6 +18,7 @@ tasks:
     command: |
       cd frontend-react-js
       npm i
+      source "$THEIA_WORKSPACE_ROOT/frontend-react-js/bin/auto-redirect.sh"
 
 vscode:
   extensions:
@@ -35,3 +36,4 @@ ports:
   - name: xray-daemon
     port: 2000
     visibility: public
+

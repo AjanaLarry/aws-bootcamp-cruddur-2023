@@ -76,6 +76,15 @@ export default function SigninPage() {
             <button type='submit'>Sign In</button>
           </div>
 
+          <div className="center-a-div">
+            <div className="google-btn" onClick={() => Auth.federatedSignIn({ provider: 'Google' })}>
+              <div className="google-icon-wrapper">
+                <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+              </div>
+              <p class="btn-text"><b>Continue with Google</b></p>
+            </div>
+          </div>
+
         </form>
         <div className="dont-have-an-account">
           <span>

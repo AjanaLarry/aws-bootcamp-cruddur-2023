@@ -58,13 +58,30 @@ export default function HomeFeedPage() {
     .catch((err) => console.log(err));
   };
 
+  // Collect Access Token for Google idp
+  const getIdToken = async () => {
+
+    Auth.currentSession().then(res => {
+      let accessToken = res.getAccessToken()
+
+      localStorage.setItem(
+        "access_token",
+        accessToken.jwtToken
+      );
+
+      loadData();
+      checkAuth();
+
+    })
+  }
+
   React.useEffect(()=>{
     //prevents double call
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
 
-    loadData();
-    checkAuth();
+    getIdToken();
+    
   }, [])
 
   return (
